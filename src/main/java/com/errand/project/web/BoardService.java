@@ -5,6 +5,8 @@ import com.errand.project.domain.board.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BoardService {
@@ -21,6 +23,10 @@ public class BoardService {
                 .build();
 
         return boardRepository.save(new_article).getId();
+    }
+
+    public List<Board> findAll() {
+        return boardRepository.findAll();
     }
 
 }
