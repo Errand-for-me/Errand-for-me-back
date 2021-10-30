@@ -10,6 +10,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin(origins = "*")
 public class BoardController {
 
     private final BoardService boardService;
@@ -27,7 +28,7 @@ public class BoardController {
 
         boardService.save(title, content);
 
-        return "redirect:/board";
+        return "redirect:/bulletin";
     }
 
 }
