@@ -1,37 +1,63 @@
 package com.errand.project.domain.user;
 
+import com.errand.project.domain.BaseTimeEntity;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+
 import javax.persistence.*;
 
+@Getter
+@NoArgsConstructor
 @Entity
-public class User {
+@DynamicInsert
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 500, nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(length = 500, nullable = false)
+    @Column(nullable = false)
     private String email;
 
-    @Column(length = 500, nullable = false)
-    private String password;
-
-    @Column(length = 11, nullable = false)
+    @Column(length = 11)
     private String phoneNumber;
 
-    @Column(length = 500, nullable = false)
+    @Column(length = 500)
     private String nickname;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 500, nullable = false)
+    @Column(nullable = false)
     private ErrandType errandType;
 
-    @Column(length = 10, nullable = false)
-    private String grade;
+    @Column(nullable = false)
+    private String grade = "Bronze";
 
-    @Column(length = 500, nullable = false)
-    private Long gradeCount;
+    @Column(nullable = false)
+    private int gradeCount = 0;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
+    @Builder
+    public User(String name, String email, Role role, ErrandType errandType) {
+        this.name = name;
+        this.email = email;
+        this.role = role;
+        this.errandType = errandType;
+    }
+
+    public User update(String name) {
+        this.name = name;
+
+        return this;
+    }
+    public String getRoleKey() {
+        return this.role.getKey();
+    }
 }
