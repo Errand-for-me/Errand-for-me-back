@@ -10,15 +10,18 @@ Spring boot에 관심을 가지고 공부하고 적용해보기 위해 지인 �
 
 ### 기술 스택
 
-![TypeScript](https://img.shields.io/badge/TypeScript-%233178C6?style=flat&logo=TypeScript&logoColor=white) ![React](https://img.shields.io/badge/React-%2361DAFB?style=flat&logo=React&logoColor=white) ![Git](https://img.shields.io/badge/Git-%23F05032?style=flat&logo=Git&logoColor=white) ![Github Actions](https://img.shields.io/badge/Github%20Actions-%232088FF?style=flat&logo=Github%20Actions&logoColor=white) ![](https://img.shields.io/badge/nCloud-%2303C75A?style=flat-square&logo=naver&logoColor=white)
+![Java](https://img.shields.io/badge/Java-007396?style=flat-square&logo=Java&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/SpringBoot-6DB33F?style=flat-square&logo=SpringBoot&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-%234479A1?style=flat&logo=MySQL&logoColor=white)
+![Git](https://img.shields.io/badge/Git-%23F05032?style=flat&logo=Git&logoColor=white) ![Github Actions](https://img.shields.io/badge/Github%20Actions-%232088FF?style=flat&logo=Github%20Actions&logoColor=white) ![](https://img.shields.io/badge/nCloud-%2303C75A?style=flat-square&logo=naver&logoColor=white)
 
 
 ### 화면 예시
 
 <div>
-<img src=https://user-images.githubusercontent.com/43175576/140654815-1732fa69-ef6d-44cf-ad0f-d70a856729c5.png width=300px>
-<img src=https://user-images.githubusercontent.com/43175576/140654830-f35bb975-3f83-4ac4-a458-48f5f19bda36.png width=300px>
-<img src=https://user-images.githubusercontent.com/43175576/140654967-75f9f054-a64d-43ea-92f2-d9743dc3b3e9.png width=300px>
+<img src=https://user-images.githubusercontent.com/43175576/140654815-1732fa69-ef6d-44cf-ad0f-d70a856729c5.png width=200px>
+<img src=https://user-images.githubusercontent.com/43175576/140654830-f35bb975-3f83-4ac4-a458-48f5f19bda36.png width=200px>
+<img src=https://user-images.githubusercontent.com/43175576/140654967-75f9f054-a64d-43ea-92f2-d9743dc3b3e9.png width=200px>
 </div>
 
 ### front-end github Link
