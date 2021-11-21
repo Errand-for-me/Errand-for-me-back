@@ -30,7 +30,6 @@ public class UserService {
 
     public User findOne(String email) {
         List<User> foundUser = userRepository.findByEmail(email);
-
         User result;
         if (foundUser.size() == 0) result = null;
         else result = foundUser.get(0);
