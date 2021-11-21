@@ -1,9 +1,7 @@
 package com.errand.project.web;
 
 import com.errand.project.domain.user.User;
-import com.errand.project.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -13,17 +11,17 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 public class UserController {
 
     private final UserService userService;
 
     @GetMapping("/sign-in-api")
-    public User SignIn(@RequestParam String email, @RequestParam String name, HttpSession session) {
+    public User SignIn(@RequestParam String email, @RequestParam String name, HttpServletRequest request) {
         User user = userService.findOne(email);
 
+        HttpSession session = request.getSession();
         if (user == null) {
-            System.out.println("no user");
             User new_User = User.builder()
                     .email(email)
                     .name(name)
@@ -33,7 +31,6 @@ public class UserController {
             session.setAttribute("name", name);
             return new_User;
         } else {
-            System.out.println(user.getEmail());
             session.setAttribute("nickname", user.getNickname());
             session.setAttribute("email", email);
             session.setAttribute("name", name);
@@ -58,15 +55,20 @@ public class UserController {
     }
 
     @PostMapping("/google-sign-in")
-    public String GoogleSignin(@RequestBody Map<String, String> body, HttpSession session) {
+    public RedirectView GoogleSignin(@RequestBody Map<String, String> body, HttpServletRequest request) {
+        HttpSession session = request.getSession();
         String nickname = body.get("nickname");
 
-        String email = (String)session.getAttribute("email");
-        String name = (String)session.getAttribute("name");
+        session.setAttribute("nickname", nickname);
+        session.setAttribute("isLogin", true);
 
-        System.out.println(email);
-        System.out.println(name);
+        String email = (String) session.getAttribute("email");
+        String name = (String) session.getAttribute("name");
 
-        return "test";
+        userService.save(name, email, null, nickname);
+
+        RedirectView redirect = new RedirectView();
+        redirect.setUrl("");
+        return redirect;
     }
 }
