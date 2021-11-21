@@ -1,7 +1,13 @@
 package com.errand.project.domain.user;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@Getter
+@NoArgsConstructor
 @Entity
 public class User {
 
@@ -18,20 +24,19 @@ public class User {
     @Column(length = 500, nullable = false)
     private String password;
 
-    @Column(length = 11, nullable = false)
-    private String phoneNumber;
-
     @Column(length = 500, nullable = false)
     private String nickname;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 500, nullable = false)
+    @Column(length = 500)
     private ErrandType errandType;
 
-    @Column(length = 10, nullable = false)
-    private String grade;
-
-    @Column(length = 500, nullable = false)
-    private Long gradeCount;
+    @Builder
+    public User(String name, String email, String password, String nickname) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+    }
 
 }
