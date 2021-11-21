@@ -3,9 +3,12 @@ package com.errand.project.web;
 import com.errand.project.domain.user.User;
 import com.errand.project.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -16,7 +19,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/sign-in-api")
-    public User SignIn(@RequestParam String email, @RequestParam  String name) {
+    public User SignIn(@RequestParam String email, @RequestParam String name, HttpSession session) {
         User user = userService.findOne(email);
 
         if (user == null) {
@@ -25,12 +28,15 @@ public class UserController {
                     .email(email)
                     .name(name)
                     .build();
-            //세션에 이메일 이름 저장하기
+
+            session.setAttribute("email", email);
+            session.setAttribute("name", name);
             return new_User;
-        }
-        else {
+        } else {
             System.out.println(user.getEmail());
-            //세션 만들기
+            session.setAttribute("nickname", user.getNickname());
+            session.setAttribute("email", email);
+            session.setAttribute("name", name);
             return user;
         }
     }
@@ -44,11 +50,23 @@ public class UserController {
 
         if (email == null) {
             userService.save(name, "null", password, nickname);
-        }
-        else {
+        } else {
             userService.save("null", email, "null", nickname);
         }
 
         return "redirect:/";
+    }
+
+    @PostMapping("/google-sign-in")
+    public String GoogleSignin(@RequestBody Map<String, String> body, HttpSession session) {
+        String nickname = body.get("nickname");
+
+        String email = (String)session.getAttribute("email");
+        String name = (String)session.getAttribute("name");
+
+        System.out.println(email);
+        System.out.println(name);
+
+        return "test";
     }
 }
