@@ -16,6 +16,28 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/logOut")
+    public void logOut(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+    }
+
+    @GetMapping("/isLogin")
+    public User isLogin(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        if (session.getAttribute("nickname") == null) {
+            return new User();
+        } else {
+            User new_User = User.builder()
+                    .email((String) session.getAttribute("email"))
+                    .name((String) session.getAttribute("name"))
+                    .nickname((String) session.getAttribute("nickname"))
+                    .build();
+            return new_User;
+        }
+    }
+
     @GetMapping("/sign-in-api")
     public User SignIn(@RequestParam String email, @RequestParam String name, HttpServletRequest request) {
         User user = userService.findOne(email);

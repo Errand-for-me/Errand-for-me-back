@@ -21,9 +21,13 @@ public class Board {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    public String writer;
+
     @Builder
-    public Board(String title, String content) {
+    public Board(String title, String content, String writer) {
         this.title = title;
         this.content = content;
+        this.writer = writer;
     }
 }
