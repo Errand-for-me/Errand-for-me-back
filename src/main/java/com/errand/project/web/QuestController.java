@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,7 +20,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 public class QuestController {
 
     private final QuestService questService;
@@ -45,7 +47,10 @@ public class QuestController {
     public List<Quest> questGet() { return questService.findAll(); }
 
     @PostMapping("/quest")
-    public RedirectView questPost(@ModelAttribute registerQuest request) {
+    public RedirectView questPost(@ModelAttribute registerQuest request, HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        String writer = (String)session.getAttribute("nickname");
+
         MultipartFile file = request.getImage();
         StringBuilder sb = new StringBuilder();
 
@@ -53,10 +58,11 @@ public class QuestController {
         String content = request.getContent();
         int people = request.getPeople();
         String filename = request.getImage().getOriginalFilename();
+        float lng = request.getLng();
+        float lat = request.getLat();
         if (filename == "") filename = "none.svg";
-        String writer = "임시 유저 이름";
 
-        questService.save(title, content, people, filename, writer);
+        questService.save(title, content, people, filename, writer, lat, lng);
 
         if (file.isEmpty()) {
             sb.append("none");

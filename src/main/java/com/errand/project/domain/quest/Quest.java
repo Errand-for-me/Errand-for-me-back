@@ -30,12 +30,20 @@ public class Quest {
     @Column(length = 50)
     private String writer;
 
+    @Column()
+    private float lat;
+
+    @Column()
+    private float lng;
+
     @Builder
-    public Quest(String title, String content, int people, String imageURL, String writer) {
+    public Quest(String title, String content, int people, String imageURL, String writer, float lat, float lng) {
         this.title = title;
         this.content = content;
         this.people = people;
         this.imageURL = imageURL;
         this.writer = writer;
+        this.lat = lat;
+        this.lng = lng;
     }
 }

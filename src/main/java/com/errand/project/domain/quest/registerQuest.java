@@ -12,4 +12,6 @@ public class registerQuest {
     private String content;
     private int people;
     private String writer;
+    private float lat;
+    private float lng;
 }
