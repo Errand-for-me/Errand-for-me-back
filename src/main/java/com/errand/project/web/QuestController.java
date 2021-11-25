@@ -46,6 +46,9 @@ public class QuestController {
     @GetMapping("/quest")
     public List<Quest> questGet() { return questService.findAll(); }
 
+    @PostMapping("/quest-receiver")
+    public int questReceiver(String receiver, int id) { return questService.updateReceiver(receiver, id); }
+
     @PostMapping("/quest")
     public RedirectView questPost(@ModelAttribute registerQuest request, HttpServletRequest req) {
         HttpSession session = req.getSession();
@@ -58,8 +61,10 @@ public class QuestController {
         String content = request.getContent();
         int people = request.getPeople();
         String filename = request.getImage().getOriginalFilename();
+
         float lng = request.getLng();
         float lat = request.getLat();
+
         if (filename == "") filename = "none.svg";
 
         questService.save(title, content, people, filename, writer, lat, lng);

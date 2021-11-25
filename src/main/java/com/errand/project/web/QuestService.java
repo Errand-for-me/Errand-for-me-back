@@ -29,6 +29,7 @@ public class QuestService {
                 .writer(new_writer)
                 .lat(new_lat)
                 .lng(new_lng)
+                .receiver(null)
                 .build();
 
         return questRepository.save(new_article).getId();
@@ -37,5 +38,9 @@ public class QuestService {
     public List<Quest> findAll() {
         return questRepository.findAll();
     }
+
+    public int updateReceiver(String receiver, int id) { return questRepository.updateReceiver(receiver, id); }
+
+    public List<Quest> findChatList(String name) { return questRepository.findAllChatByName(name); }
 
 }

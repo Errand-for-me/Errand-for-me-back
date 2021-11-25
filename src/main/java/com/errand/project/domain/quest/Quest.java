@@ -36,8 +36,11 @@ public class Quest {
     @Column()
     private float lng;
 
+    @Column()
+    private String receiver;
+
     @Builder
-    public Quest(String title, String content, int people, String imageURL, String writer, float lat, float lng) {
+    public Quest(String title, String content, int people, String imageURL, String writer, float lat, float lng, String receiver) {
         this.title = title;
         this.content = content;
         this.people = people;
@@ -45,5 +48,6 @@ public class Quest {
         this.writer = writer;
         this.lat = lat;
         this.lng = lng;
+        this.receiver = receiver;
     }
 }

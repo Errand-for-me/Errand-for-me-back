@@ -41,3 +41,5 @@ application.yml
 build/
 static/
 img/
+*.jar
+nohup.out
