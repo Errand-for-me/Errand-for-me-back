@@ -6,13 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class QuestService {
     private final QuestRepository questRepository;
 
-    public Long save(String title, String content, int people, String imageURL, String writer, float lat, float lng) {
+    public Long save(String title, String content, int people, String imageURL, String writer, float lat, float lng, int payment) {
         String new_title = title;
         String new_content = content;
         int new_people = people;
@@ -20,6 +21,7 @@ public class QuestService {
         String new_writer = writer;
         float new_lat = lat;
         float new_lng = lng;
+        int new_payment = payment;
 
         Quest new_article = Quest.builder()
                 .title(new_title)
@@ -30,6 +32,7 @@ public class QuestService {
                 .lat(new_lat)
                 .lng(new_lng)
                 .receiver(null)
+                .payment(new_payment)
                 .build();
 
         return questRepository.save(new_article).getId();
@@ -39,8 +42,10 @@ public class QuestService {
         return questRepository.findAll();
     }
 
-    public int updateReceiver(String receiver, int id) { return questRepository.updateReceiver(receiver, id); }
+    public int updateReceiver(String receiver, Long id) { return questRepository.updateReceiver(receiver, id); }
 
     public List<Quest> findChatList(String name) { return questRepository.findAllChatByName(name); }
+
+    public Optional<Quest> findById(Long id) { return questRepository.findById(id); }
 
 }

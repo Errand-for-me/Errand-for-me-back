@@ -14,4 +14,5 @@ public class registerQuest {
     private String writer;
     private float lat;
     private float lng;
+    private int payment;
 }

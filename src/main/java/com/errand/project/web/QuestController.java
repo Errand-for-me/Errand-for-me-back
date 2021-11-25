@@ -1,6 +1,7 @@
 package com.errand.project.web;
 
 import com.errand.project.domain.quest.Quest;
+import com.errand.project.domain.quest.QuestAcceptDTO;
 import com.errand.project.domain.quest.registerQuest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.FileSystemResource;
@@ -17,6 +18,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -46,8 +48,18 @@ public class QuestController {
     @GetMapping("/quest")
     public List<Quest> questGet() { return questService.findAll(); }
 
-    @PostMapping("/quest-receiver")
-    public int questReceiver(String receiver, int id) { return questService.updateReceiver(receiver, id); }
+    @GetMapping("/quest-info")
+    public Optional<Quest> getQuestInfo(@RequestParam Long id) { return questService.findById(id); }
+
+    @PostMapping("/quest-accept")
+    public int questReceiver(HttpServletRequest request, @RequestBody QuestAcceptDTO body) {
+
+        HttpSession session = request.getSession();
+        String receiver = (String)session.getAttribute("nickname");
+
+        return questService.updateReceiver(receiver, body.getId());
+
+    }
 
     @PostMapping("/quest")
     public RedirectView questPost(@ModelAttribute registerQuest request, HttpServletRequest req) {
@@ -64,10 +76,11 @@ public class QuestController {
 
         float lng = request.getLng();
         float lat = request.getLat();
+        int payment = request.getPayment();
 
         if (filename == "") filename = "none.svg";
 
-        questService.save(title, content, people, filename, writer, lat, lng);
+        questService.save(title, content, people, filename, writer, lat, lng, payment);
 
         if (file.isEmpty()) {
             sb.append("none");
