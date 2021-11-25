@@ -1,6 +1,7 @@
 package com.errand.project.web;
 
 import com.errand.project.domain.board.Board;
+import com.errand.project.domain.board.BoardIdDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +38,13 @@ public class BoardController {
         RedirectView redirect = new RedirectView();
         redirect.setUrl("bulletin");
         return "redirect:/";
+    }
+
+    @PostMapping("/board/delete")
+    public void deleteBullet(@RequestBody BoardIdDTO body) {
+        Long bulletId = body.getId();
+
+        boardService.deleteById(bulletId);
     }
 
     @PostMapping("/board")

@@ -48,4 +48,6 @@ public class QuestService {
 
     public Optional<Quest> findById(Long id) { return questRepository.findById(id); }
 
+    public void deleteById(Long id) { questRepository.deleteById(id); }
+
 }

@@ -58,6 +58,13 @@ public class QuestController {
         String receiver = (String)session.getAttribute("nickname");
 
         return questService.updateReceiver(receiver, body.getId());
+    }
+
+    @PostMapping("/quest/delete")
+    public void deleteQuest(@RequestBody QuestAcceptDTO body) {
+        Long questId = body.getId();
+
+        questService.deleteById(questId);
 
     }
 
