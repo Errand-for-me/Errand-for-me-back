@@ -30,6 +30,7 @@ public class QuestController {
     @GetMapping("/img/{filename}")
     public ResponseEntity<Resource> viewImg(@PathVariable("filename") String imgname) throws IOException {
         String _path = System.getProperty("user.dir");
+        if (imgname == "") imgname = "none.svg";
         String inputFile = _path + "/img/" + imgname;
         Path path = new File(inputFile).toPath();
         FileSystemResource resource = new FileSystemResource(path);
