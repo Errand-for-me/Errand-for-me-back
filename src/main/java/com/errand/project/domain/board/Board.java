@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Getter
 @NoArgsConstructor
@@ -24,10 +25,14 @@ public class Board {
     @Column(nullable = false)
     public String writer;
 
+    @Column
+    public Date postTime;
+
     @Builder
-    public Board(String title, String content, String writer) {
+    public Board(String title, String content, String writer, Date postTime) {
         this.title = title;
         this.content = content;
         this.writer = writer;
+        this.postTime = postTime;
     }
 }

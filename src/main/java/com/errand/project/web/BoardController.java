@@ -9,6 +9,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public class BoardController {
     public String boardWrite(@RequestParam String title, @RequestParam String content, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String writer = (String) session.getAttribute("nickname");
-        boardService.save(title, content, writer);
+        boardService.save(title, content, writer, new Date());
 
         RedirectView redirect = new RedirectView();
         redirect.setUrl("bulletin");
@@ -54,7 +55,7 @@ public class BoardController {
         String title = requestBody.get("title").get(0);
         String content = requestBody.get("content").get(0);
 
-        boardService.save(title, content, writer);
+        boardService.save(title, content, writer, new Date());
 
         RedirectView redirect = new RedirectView();
         redirect.setUrl("");

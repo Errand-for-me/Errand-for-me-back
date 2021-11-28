@@ -36,4 +36,13 @@ public class UserService {
 
         return result;
     }
+
+    public User findByNickname(String nickname) {
+        List<User> foundUser = userRepository.findByNickname(nickname);
+        User result;
+        if (foundUser.size() == 0) result = null;
+        else result = foundUser.get(0);
+
+        return result;
+    }
 }

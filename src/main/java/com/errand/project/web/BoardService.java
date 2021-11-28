@@ -5,6 +5,7 @@ import com.errand.project.domain.board.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -13,15 +14,17 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    public Long save(String title, String content, String writer) {
+    public Long save(String title, String content, String writer, Date postTime) {
         String new_title = title;
         String new_content = content;
         String new_writer = writer;
+        Date new_postTime = postTime;
 
         Board new_article = Board.builder()
                 .title(new_title)
                 .content(new_content)
                 .writer(new_writer)
+                .postTime(new_postTime)
                 .build();
 
         return boardRepository.save(new_article).getId();

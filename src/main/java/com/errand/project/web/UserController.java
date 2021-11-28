@@ -67,6 +67,12 @@ public class UserController {
         String nickname = signupData.get("nickname");
         String password = signupData.get("password");
 
+        User lookupDB = userService.findByNickname(nickname);
+
+        if (lookupDB != null) {
+            System.out.println("req fail!");
+            return "false";
+        }
         if (email == null) {
             userService.save(name, "null", password, nickname);
         } else {
@@ -77,9 +83,16 @@ public class UserController {
     }
 
     @PostMapping("/google-sign-in")
-    public RedirectView GoogleSignin(@RequestBody Map<String, String> body, HttpServletRequest request) {
+    public String GoogleSignin(@RequestBody Map<String, String> body, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String nickname = body.get("nickname");
+
+        User lookupDB = userService.findByNickname(nickname);
+
+        if (lookupDB != null) {
+            System.out.println("req fail!");
+            return "false";
+        }
 
         session.setAttribute("nickname", nickname);
         session.setAttribute("isLogin", true);
@@ -89,8 +102,6 @@ public class UserController {
 
         userService.save(name, email, null, nickname);
 
-        RedirectView redirect = new RedirectView();
-        redirect.setUrl("");
-        return redirect;
+        return "true";
     }
 }
